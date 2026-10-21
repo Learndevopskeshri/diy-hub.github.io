@@ -415,58 +415,62 @@
             }
         }
 
-        async function performSearch(customQuery = null) {
-            const query = customQuery || document.getElementById("search-input").value.trim();
-            const grid = document.getElementById("video-grid");
-            const titleEl = document.getElementById("results-title");
+async function performSearch(customQuery = null) {
+    const query = customQuery || document.getElementById("search-input").value.trim();
+    const grid = document.getElementById("video-grid");
+    const titleEl = document.getElementById("results-title");
 
-            if (!query) return;
+    if (!query) return;
 
-            titleEl.innerHTML = `<i class="fa-solid fa-video"></i> Search Results for: "${query}"`;
-            grid.innerHTML = `
-                <div class="loading-spinner">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    <p>Searching YouTube & Web Resources for "${query}"...</p>
-                </div>
-            `;
+    titleEl.innerHTML = `<i class="fa-solid fa-video"></i> Search Results for: "${query}"`;
+    grid.innerHTML = `
+        <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Searching YouTube for "${query}"...</p>
+        </div>
+    `;
 
-            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY_HERE") {
-                setTimeout(() => {
-                    const filtered = fallbackData.filter(item => 
-                        item.title.toLowerCase().includes(query.toLowerCase())
-                    );
-                    renderCards(filtered.length > 0 ? filtered : fallbackData);
-                }, 500);
-                return;
-            }
+    if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY_HERE") {
+        setTimeout(() => {
+            const filtered = fallbackData.filter(item => 
+                item.title.toLowerCase().includes(query.toLowerCase())
+            );
+            renderCards(filtered.length > 0 ? filtered : fallbackData);
+        }, 500);
+        return;
+    }
 
-            try {
-                const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(query + ' DIY tutorial guide')}&type=video&key=${YOUTUBE_API_KEY}`;
-                const response = await fetch(endpoint);
-                const data = await response.json();
+    try {
+        // Automatically detect user's country from browser language (e.g., 'en-IN' -> 'IN')
+        const userLang = navigator.language || navigator.userLanguage || 'en-US';
+        const countryCode = userLang.split('-')[1] || 'US';
 
-                if (data.error) {
-                    console.error("YouTube API Error:", data.error);
-                    document.getElementById("api-status").style.display = "flex";
-                    document.getElementById("api-status").innerHTML = `<span><i class="fa-solid fa-circle-exclamation"></i> API Error: ${data.error.message}</span>`;
-                    renderCards(fallbackData);
-                    return;
-                }
+        const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(query)}&type=video&regionCode=${countryCode}&key=${YOUTUBE_API_KEY}`;
+        const response = await fetch(endpoint);
+        const data = await response.json();
 
-                const videos = data.items.map(item => ({
-                    title: item.snippet.title,
-                    channel: item.snippet.channelTitle,
-                    platform: "YouTube",
-                    thumbnail: item.snippet.thumbnails.high.url,
-                    url: `https://www.youtube.com/watch?v=${item.id.videoId}`
-                }));
-
-                renderCards(videos);
-            } catch (err) {
-                console.error("Fetch Error:", err);
-                renderCards(fallbackData);
-            }
+        if (data.error) {
+            console.error("YouTube API Error:", data.error);
+            document.getElementById("api-status").style.display = "flex";
+            document.getElementById("api-status").innerHTML = `<span><i class="fa-solid fa-circle-exclamation"></i> API Error: ${data.error.message}</span>`;
+            renderCards(fallbackData);
+            return;
         }
+
+        const videos = data.items.map(item => ({
+            title: item.snippet.title,
+            channel: item.snippet.channelTitle,
+            platform: "YouTube",
+            thumbnail: item.snippet.thumbnails.high.url,
+            url: `https://www.youtube.com/watch?v=${item.id.videoId}`
+        }));
+
+        renderCards(videos);
+    } catch (err) {
+        console.error("Fetch Error:", err);
+        renderCards(fallbackData);
+    }
+}
 
         function renderCards(items) {
             const grid = document.getElementById("video-grid");
