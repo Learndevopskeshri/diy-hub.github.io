@@ -3,193 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MakerVault — Universal DIY Recommendation Hub</title>
+    <title>MakerVault - DIY Knowledge Engine</title>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #10b981;
-            --primary-hover: #059669;
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-yt: #ff0000;
-            --accent-ig: #e1306c;
-            --accent-fb: #1877f2;
-            --accent-tt: #00f2fe;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --border-color: #30363d;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
-            padding-bottom: 60px;
-        }
-
-        header {
-            background-color: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, var(--primary), #3b82f6);
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .logo-text h1 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-text span {
-            font-size: 0.75rem;
-            color: var(--primary);
-            font-weight: 600;
-            display: block;
-        }
-
-        .hero {
-            padding: 4rem 2rem 2rem;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero badge {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h2 {
-            font-size: 2.75rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .search-box {
-            position: relative;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 1.2rem 1.5rem 1.2rem 3.2rem;
-            border-radius: 14px;
-            border: 2px solid var(--border-color);
-            background: rgba(30, 41, 59, 0.8);
-            color: white;
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
-        }
-
-        .search-box i.search-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-
-        .search-box button {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .search-box button:hover {
-            background: var(--primary-hover);
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 3rem auto 0;
-            padding: 0 2rem;
+            width: 100%;
+            max-width: 1100px;
         }
 
-        .section-header {
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            gap: 12px;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+        header p {
+            color: #8b949e;
+            font-size: 1.1rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-box button {
+            padding: 0 24px;
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-box button:hover {
+            background-color: #2ea043;
+        }
+
+        .results-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -198,35 +109,32 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+            gap: 24px;
         }
 
         .card {
-            background: var(--card-bg);
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
             display: flex;
             flex-direction: column;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: rgba(16, 185, 129, 0.4);
+            border-color: var(--accent-color);
         }
 
         .thumbnail-container {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background: #020617;
+            height: 180px;
+            background-color: #21262d;
         }
 
         .thumbnail-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -234,252 +142,258 @@
 
         .platform-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 10px;
+            right: 10px;
             padding: 4px 10px;
-            border-radius: 20px;
+            border-radius: 4px;
             font-size: 0.75rem;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: bold;
+            color: #ffffff;
         }
 
-        .badge-youtube { background: var(--accent-yt); }
-        .badge-instagram { background: var(--accent-ig); }
-        .badge-facebook { background: var(--accent-fb); }
+        .badge-youtube { background-color: #ff0000; }
+        .badge-reddit { background-color: #ff4500; }
+        .badge-github { background-color: #24292e; }
 
         .card-body {
-            padding: 1.25rem;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            flex: 1;
         }
 
         .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
             line-height: 1.4;
-            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .card-meta {
             font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .card-footer {
-            margin-top: auto;
+            color: #8b949e;
+            margin-bottom: 16px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .watch-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: background 0.2s;
-            display: inline-flex;
             align-items: center;
             gap: 6px;
         }
 
+        .card-footer {
+            margin-top: auto;
+        }
+
+        .watch-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
         .watch-btn:hover {
-            background: var(--primary);
+            text-decoration: underline;
         }
 
         .loading-spinner {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
             grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: #8b949e;
+            font-size: 1.1rem;
         }
 
         .loading-spinner i {
             font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .api-status-banner {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            color: #fde047;
-            padding: 10px 16px;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        @media (max-width: 600px) {
-            .hero h2 { font-size: 2rem; }
-            .search-box input { font-size: 0.95rem; }
+            margin-bottom: 10px;
+            color: var(--accent-color);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hammer"></i></div>
-                <div class="logo-text">
-                    <h1>MakerVault</h1>
-                    <span>DIY Knowledge Engine</span>
-                </div>
-            </a>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="badge">🚀 Instant Cross-Platform Video Search</div>
-        <h2>Find Answers For Any DIY Project</h2>
-        <p>Type any keyword or kit name (e.g. "Mushroom grow kit", "Battery motor toy") to discover real live video guides from YouTube and social media.</p>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-screwdriver-wrench"></i> MakerVault</h1>
+            <p>DIY Knowledge Engine – Live Multi-Platform Search</p>
+        </header>
 
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search any DIY project, repair, or kit..." onkeyup="handleKeyPress(event)">
+            <input type="text" id="search-input" placeholder="Search DIY projects, kits, Arduino, hydroponics..." onkeypress="if(event.key === 'Enter') performSearch()">
             <button onclick="performSearch()">Search</button>
         </div>
-    </section>
 
-    <main class="container">
-        <div id="api-status" class="api-status-banner" style="display: none;">
-            <span><i class="fa-solid fa-triangle-exclamation"></i> Live API key pending. Showing curated starter guides below.</span>
+        <div class="results-section">
+            <h3 id="results-title"><i class="fa-solid fa-fire"></i> Trending DIY Projects</h3>
+            <div id="video-grid" class="grid">
+                <!-- Dynamic cards load here -->
+            </div>
         </div>
-
-        <div class="section-header">
-            <h3 class="section-title" id="results-title"><i class="fa-solid fa-video"></i> Recommended DIY Videos</h3>
-        </div>
-
-        <div class="grid" id="video-grid">
-            <!-- Dynamic Video Cards Will Load Here -->
-        </div>
-    </main>
+    </div>
 
     <script>
-        // =========================================================
-        // PASTE YOUR GOOGLE CLOUD YOUTUBE API KEY BELOW:
-        // =========================================================
-        const YOUTUBE_API_KEY = "AIzaSyBjlenag75knNhH2FRECE3lZY01PviQp9Q";
-
-        // Curated fallback data if no API key is provided or API limit reached
+        // Fallback data if API requests fail
         const fallbackData = [
             {
                 title: "How to Grow Mushrooms at Home (DIY Grow Kit Guide)",
                 channel: "FreshCap Mushrooms",
                 platform: "YouTube",
-                thumbnail: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
-                url: "https://www.youtube.com/results?search_query=mushroom+diy+kit"
+                badgeClass: "badge-youtube",
+                iconClass: "fa-brands fa-youtube",
+                thumbnail: "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=600&q=80",
+                url: "https://www.youtube.com/results?search_query=grow+mushrooms+at+home"
             },
             {
                 title: "Build a Simple DIY Battery Powered Motor Toy",
                 channel: "Make: Science & Tech",
                 platform: "YouTube",
+                badgeClass: "badge-youtube",
+                iconClass: "fa-brands fa-youtube",
                 thumbnail: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80",
-                url: "https://www.youtube.com/results?search_query=battery+powered+toy+motor+diy"
+                url: "https://www.youtube.com/results?search_query=diy+battery+powered+motor+toy"
             },
             {
                 title: "Arduino Beginner Guide: LED Matrix & Circuit",
                 channel: "Circuit basics",
                 platform: "YouTube",
+                badgeClass: "badge-youtube",
+                iconClass: "fa-brands fa-youtube",
                 thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
                 url: "https://www.youtube.com/results?search_query=arduino+beginner+guide"
             }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
-            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY_HERE") {
-                document.getElementById("api-status").style.display = "flex";
-                renderCards(fallbackData);
-            } else {
-                performSearch("DIY beginner tutorial");
+        // Your active YouTube API Key
+        const YOUTUBE_API_KEY = "AIzaSyBjlenag75knNhH2FRECE3lZY01PviQp9Q";
+
+        // Initial load with default search
+        window.onload = () => {
+            document.getElementById("search-input").value = "mushroom oyster";
+            performSearch("mushroom oyster");
+        };
+
+        async function performSearch(customQuery = null) {
+            const query = customQuery || document.getElementById("search-input").value.trim();
+            const grid = document.getElementById("video-grid");
+            const titleEl = document.getElementById("results-title");
+
+            if (!query) return;
+
+            titleEl.innerHTML = `<i class="fa-solid fa-layer-group"></i> Results for: "${query}"`;
+            grid.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Searching YouTube, Reddit, and GitHub for "${query}"...</p>
+                </div>
+            `;
+
+            let combinedResults = [];
+
+            // Detect browser location for region-specific YouTube results
+            const userLang = navigator.language || navigator.userLanguage || 'en-US';
+            const countryCode = userLang.split('-')[1] || 'IN';
+            let ytSearchQuery = query;
+            if (countryCode === 'IN') {
+                ytSearchQuery += ' in India';
             }
-        });
 
-        function handleKeyPress(e) {
-            if (e.key === "Enter") {
-                performSearch();
+            // --- 1. YouTube API ---
+            if (YOUTUBE_API_KEY && YOUTUBE_API_KEY !== "YOUR_YOUTUBE_API_KEY_HERE") {
+                try {
+                    const ytEndpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=${encodeURIComponent(ytSearchQuery)}&type=video&regionCode=${countryCode}&key=${YOUTUBE_API_KEY}`;
+                    const response = await fetch(ytEndpoint);
+                    const data = await response.json();
+
+                    if (data.items) {
+                        const ytCards = data.items.map(item => ({
+                            title: item.snippet.title,
+                            channel: item.snippet.channelTitle,
+                            platform: "YouTube",
+                            badgeClass: "badge-youtube",
+                            iconClass: "fa-brands fa-youtube",
+                            thumbnail: item.snippet.thumbnails.high.url,
+                            url: `https://www.youtube.com/watch?v=${item.id.videoId}`
+                        }));
+                        combinedResults.push(...ytCards);
+                    }
+                } catch (err) {
+                    console.error("YouTube Fetch Error:", err);
+                }
             }
+
+            // --- 2. Reddit DIY API (No Key Needed) ---
+            try {
+                const redditEndpoint = `https://www.reddit.com/r/diy/search.json?q=${encodeURIComponent(query)}&restrict_sr=1&limit=3`;
+                const redditRes = await fetch(redditEndpoint);
+                const redditData = await redditRes.json();
+
+                if (redditData.data && redditData.data.children) {
+                    const redditCards = redditData.data.children.map(post => {
+                        const p = post.data;
+                        let thumb = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80";
+                        if (p.thumbnail && p.thumbnail.startsWith("http")) {
+                            thumb = p.thumbnail;
+                        }
+                        return {
+                            title: p.title,
+                            channel: `r/diy • u/${p.author}`,
+                            platform: "Reddit",
+                            badgeClass: "badge-reddit",
+                            iconClass: "fa-brands fa-reddit",
+                            thumbnail: thumb,
+                            url: `https://reddit.com${p.permalink}`
+                        };
+                    });
+                    combinedResults.push(...redditCards);
+                }
+            } catch (err) {
+                console.error("Reddit Fetch Error:", err);
+            }
+
+            // --- 3. GitHub Repositories API (No Key Needed) ---
+            try {
+                const githubEndpoint = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+topic:diy&per_page=3`;
+                const ghRes = await fetch(githubEndpoint);
+                const ghData = await ghRes.json();
+
+                if (ghData.items) {
+                    const ghCards = ghData.items.map(repo => ({
+                        title: repo.name + " - " + (repo.description || "Open source DIY repo"),
+                        channel: `GitHub • ${repo.owner.login}`,
+                        platform: "GitHub",
+                        badgeClass: "badge-github",
+                        iconClass: "fa-brands fa-github",
+                        thumbnail: repo.owner.avatar_url || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+                        url: repo.html_url
+                    }));
+                    combinedResults.push(...ghCards);
+                }
+            } catch (err) {
+                console.error("GitHub Fetch Error:", err);
+            }
+
+            // --- Fallback if all APIs fail or return nothing ---
+            if (combinedResults.length === 0) {
+                combinedResults = fallbackData.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+
+            renderCards(combinedResults);
         }
-
-async function performSearch(customQuery = null) {
-    const query = customQuery || document.getElementById("search-input").value.trim();
-    const grid = document.getElementById("video-grid");
-    const titleEl = document.getElementById("results-title");
-
-    if (!query) return;
-
-    titleEl.innerHTML = `<i class="fa-solid fa-video"></i> Search Results for: "${query}"`;
-    grid.innerHTML = `
-        <div class="loading-spinner">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>Searching YouTube for "${query}"...</p>
-        </div>
-    `;
-
-    if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY_HERE") {
-        setTimeout(() => {
-            const filtered = fallbackData.filter(item => 
-                item.title.toLowerCase().includes(query.toLowerCase())
-            );
-            renderCards(filtered.length > 0 ? filtered : fallbackData);
-        }, 500);
-        return;
-    }
-
-try {
-        const userLang = navigator.language || navigator.userLanguage || 'en-US';
-        const countryCode = userLang.split('-')[1] || 'US';
-
-        let searchQuery = query;
-        if (countryCode === 'IN') {
-            searchQuery += ' in India';
-        }
-        const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(searchQuery)}&type=video&regionCode=${countryCode}&key=${YOUTUBE_API_KEY}`;
-        
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        if (data.error) {
-            console.error("YouTube API Error:", data.error);
-            document.getElementById("api-status").style.display = "flex";
-            document.getElementById("api-status").innerHTML = `<span><i class="fa-solid fa-circle-exclamation"></i> API Error: ${data.error.message}</span>`;
-            renderCards(fallbackData);
-            return;
-        }
-        const videos = data.items.map(item => ({
-            title: item.snippet.title,
-            channel: item.snippet.channelTitle,
-            platform: "YouTube",
-            thumbnail: item.snippet.thumbnails.high.url,
-            url: `https://www.youtube.com/watch?v=${item.id.videoId}`
-        }));
-
-        renderCards(videos);
-    } catch (err) {
-        console.error("Fetch Error:", err);
-        renderCards(fallbackData);
-    }
-}
 
         function renderCards(items) {
             const grid = document.getElementById("video-grid");
             grid.innerHTML = "";
 
             if (items.length === 0) {
-                grid.innerHTML = `<div class="loading-spinner"><p>No specific videos found. Try another search term!</p></div>`;
+                grid.innerHTML = `<div class="loading-spinner"><p>No results found across platforms.</p></div>`;
                 return;
             }
 
@@ -489,14 +403,16 @@ try {
                 card.innerHTML = `
                     <div class="thumbnail-container">
                         <img src="${item.thumbnail}" alt="${item.title}">
-                        <div class="platform-badge badge-youtube"><i class="fa-brands fa-youtube"></i> ${item.platform}</div>
+                        <div class="platform-badge ${item.badgeClass}">
+                            <i class="${item.iconClass}"></i> ${item.platform}
+                        </div>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">${item.title}</h4>
                         <div class="card-meta"><i class="fa-regular fa-circle-user"></i> ${item.channel}</div>
                         <div class="card-footer">
                             <a href="${item.url}" target="_blank" rel="noopener" class="watch-btn">
-                                Watch Tutorial <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                Explore <i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                         </div>
                     </div>
