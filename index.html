@@ -1,1293 +1,502 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craft&Connect - Universal DIY & Hobbyist Recommendation Hub</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <title>MakerVault — Universal DIY Recommendation Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d',
-                        },
-                        darkbg: {
-                            50: '#1e293b',
-                            100: '#0f172a',
-                            200: '#020617',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Platform Color Gradients & Styles */
-        .platform-youtube { background-color: #ff0000; color: #ffffff; }
-        .platform-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #ffffff; }
-        .platform-tiktok { background-color: #000000; color: #25f4ee; border: 1px solid #fe2c55; }
-        .platform-facebook { background-color: #1877f2; color: #ffffff; }
-        .platform-pinterest { background-color: #e60023; color: #ffffff; }
-        .platform-reddit { background-color: #ff4500; color: #ffffff; }
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-yt: #ff0000;
+            --accent-ig: #e1306c;
+            --accent-fb: #1877f2;
+            --accent-tt: #00f2fe;
+        }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: block;
+        }
+
+        .hero {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.2rem;
+            border-radius: 14px;
+            border: 2px solid var(--border-color);
+            background: rgba(30, 41, 59, 0.8);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .search-box i.search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-box button:hover {
+            background: var(--primary-hover);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #020617;
+        }
+
+        .thumbnail-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .platform-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-youtube { background: var(--accent-yt); }
+        .badge-instagram { background: var(--accent-ig); }
+        .badge-facebook { background: var(--accent-fb); }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .watch-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
             border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(100, 116, 139, 0.3);
-            border-radius: 8px;
+
+        .watch-btn:hover {
+            background: var(--primary);
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(100, 116, 139, 0.5);
+
+        .loading-spinner {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .api-status-banner {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            color: #fde047;
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 600px) {
+            .hero h2 { font-size: 2rem; }
+            .search-box input { font-size: 0.95rem; }
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-200">
+<body>
 
-    <!-- Header Navigation -->
-    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <!-- Brand Logo -->
-            <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="resetFilters()">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-md">
-                    <i class="fa-solid fa-screwdriver-wrench text-lg"></i>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-hammer"></i></div>
+                <div class="logo-text">
+                    <h1>MakerVault</h1>
+                    <span>DIY Knowledge Engine</span>
                 </div>
-                <div>
-                    <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 dark:text-white block leading-none">MakerVault</span>
-                    <span class="text-[11px] text-brand-600 dark:text-brand-500 font-medium tracking-wide">Universal DIY Recommendation Hub</span>
-                </div>
-            </div>
-
-            <!-- Header Quick Actions -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="openSubmitModal()" class="flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-xl transition-all shadow-sm">
-                    <i class="fa-solid fa-plus"></i>
-                    <span class="hidden sm:inline">Recommend</span> Video / Guide
-                </button>
-
-                <button onclick="switchTab('diagnostic')" class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-xl transition-all">
-                    <i class="fa-solid fa-stethoscope text-amber-500"></i>
-                    <span class="hidden md:inline">Help &</span> Troubleshooter
-                </button>
-
-                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand-600 transition">
-                    <i id="theme-icon" class="fa-solid fa-moon text-base"></i>
-                </button>
-            </div>
+            </a>
         </div>
     </header>
 
-    <!-- Hero Search & Topic Banner -->
-    <section class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white py-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#22c55e_1px,transparent_1px)] [background-size:20px_20px]"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="inline-block bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold text-xs px-3.5 py-1 rounded-full mb-3 uppercase tracking-wider">
-                🚀 Find Answers For Any Project
-            </span>
-            <h1 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 text-slate-100">
-                Stop Digging. Start Building.
-            </h1>
-            <p class="text-slate-400 text-xs sm:text-sm mb-6 max-w-2xl mx-auto">
-                Step-by-step guides, safety tips, and handpicked video tutorials across YouTube, Instagram Reels, TikTok, Reddit, & Facebook Watch.
-            </p>
+    <section class="hero">
+        <div class="badge">🚀 Instant Cross-Platform Video Search</div>
+        <h2>Find Answers For Any DIY Project</h2>
+        <p>Type any keyword or kit name (e.g. "Mushroom grow kit", "Battery motor toy") to discover real live video guides from YouTube and social media.</p>
 
-            <!-- Search Bar with Dynamic Suggestions -->
-            <div class="relative max-w-2xl mx-auto shadow-2xl rounded-2xl">
-                <div class="relative flex items-center">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-base"></i>
-                    <input type="text" id="search-input" 
-                        placeholder="Search DIY Battery Toy, Mushroom Kit, Arduino LED, Wood Finish, Soldering..." 
-                        class="w-full pl-11 pr-24 py-3.5 rounded-2xl text-slate-900 dark:text-slate-100 placeholder-slate-400 bg-white dark:bg-slate-800 border-2 border-transparent focus:border-brand-500 focus:outline-none font-medium text-sm sm:text-base shadow-xl"
-                        oninput="handleSearch(this.value)"
-                        onfocus="showSuggestions()"
-                        onblur="setTimeout(() => hideSuggestions(), 200)">
-                    <button onclick="clearSearch()" id="clear-btn" class="hidden absolute right-20 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <button class="absolute right-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl transition-all shadow">
-                        Search
-                    </button>
-                </div>
-
-                <!-- Instant Search Dropdown Suggestions -->
-                <div id="search-suggestions" class="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-50 text-left overflow-hidden">
-                    <div id="suggestions-list" class="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
-                        <!-- Dynamic Suggestions -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Preset Quick Keyword Tag Chips -->
-            <div class="mt-4 flex flex-wrap justify-center items-center gap-1.5 text-xs text-slate-400">
-                <span class="font-semibold text-slate-300">Popular:</span>
-                <button onclick="setSearch('Battery Powered Toy Car')" class="bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-2.5 py-1 rounded-lg transition">🏎️ Battery Toy Car</button>
-                <button onclick="setSearch('Mushroom DIY Kit Support')" class="bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-2.5 py-1 rounded-lg transition">🍄 Mushroom Kit</button>
-                <button onclick="setSearch('Arduino LED Matrix')" class="bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-2.5 py-1 rounded-lg transition">🤖 Arduino LED</button>
-                <button onclick="setSearch('Leather Wallet')" class="bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-2.5 py-1 rounded-lg transition">🧵 Leathercraft</button>
-                <button onclick="setSearch('Wood Furniture Restoration')" class="bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-2.5 py-1 rounded-lg transition">🪵 Wood Refurbishing</button>
-            </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search any DIY project, repair, or kit..." onkeyup="handleKeyPress(event)">
+            <button onclick="performSearch()">Search</button>
         </div>
     </section>
 
-    <!-- Main Workspace Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-
-        <!-- Category Grid Explorer -->
-        <div class="mb-8">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="font-heading font-bold text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-shapes text-brand-500"></i>
-                    Browse By DIY Category
-                </h2>
-                <button onclick="openCustomTopicModal()" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
-                    <i class="fa-solid fa-folder-plus"></i> + Add Custom Topic
-                </button>
-            </div>
-
-            <!-- Categories Chips Grid -->
-            <div id="category-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                <!-- Dynamically Inserted -->
-            </div>
+    <main class="container">
+        <div id="api-status" class="api-status-banner" style="display: none;">
+            <span><i class="fa-solid fa-triangle-exclamation"></i> Live API key pending. Showing curated starter guides below.</span>
         </div>
 
-        <!-- Toolbar Filters & Tabs -->
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-            <!-- Navigation View Tabs -->
-            <div class="flex flex-wrap items-center gap-1.5 bg-slate-200/70 dark:bg-slate-900 p-1.5 rounded-2xl w-full lg:w-auto">
-                <button id="tab-all" onclick="switchTab('all')" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-800 shadow-sm transition">
-                    <i class="fa-solid fa-border-all mr-1"></i> All Content
-                </button>
-                <button id="tab-guides" onclick="switchTab('guides')" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-                    <i class="fa-solid fa-book-open mr-1"></i> Guides (<span id="guide-count">0</span>)
-                </button>
-                <button id="tab-videos" onclick="switchTab('videos')" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-                    <i class="fa-solid fa-video mr-1 text-red-500"></i> Videos (<span id="video-count">0</span>)
-                </button>
-                <button id="tab-diagnostic" onclick="switchTab('diagnostic')" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-                    <i class="fa-solid fa-wrench mr-1 text-amber-500"></i> Help Center
-                </button>
-                <button id="tab-bookmarks" onclick="switchTab('bookmarks')" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-                    <i class="fa-solid fa-bookmark mr-1 text-emerald-500"></i> Bookmarks
-                </button>
-            </div>
-
-            <!-- Filter Controls -->
-            <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
-                <!-- Skill Level Dropdown -->
-                <select id="skill-filter" onchange="applyFilters()" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 text-xs rounded-xl px-3 py-2 font-semibold shadow-sm focus:outline-none">
-                    <option value="all">⚡ All Skill Levels</option>
-                    <option value="Beginner">🟢 Beginner</option>
-                    <option value="Intermediate">🟡 Intermediate</option>
-                    <option value="Advanced">🔴 Advanced</option>
-                </select>
-
-                <!-- Platform Filter -->
-                <select id="platform-filter" onchange="applyFilters()" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 text-xs rounded-xl px-3 py-2 font-semibold shadow-sm focus:outline-none">
-                    <option value="all">📱 All Platforms</option>
-                    <option value="YouTube">YouTube</option>
-                    <option value="Instagram">Instagram Reels</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="Facebook">Facebook Watch</option>
-                    <option value="Reddit">Reddit Video</option>
-                    <option value="Pinterest">Pinterest</option>
-                </select>
-
-                <!-- Sort Order -->
-                <select id="sort-order" onchange="applyFilters()" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 text-xs rounded-xl px-3 py-2 font-semibold shadow-sm focus:outline-none">
-                    <option value="upvotes">🔥 Highest Upvoted</option>
-                    <option value="newest">🕒 Recently Added</option>
-                </select>
-            </div>
+        <div class="section-header">
+            <h3 class="section-title" id="results-title"><i class="fa-solid fa-video"></i> Recommended DIY Videos</h3>
         </div>
 
-        <!-- Active Filter Indicator Bar -->
-        <div id="active-filter-indicator" class="hidden mb-4 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800">
-            <span class="font-bold">Active Filters:</span>
-            <div id="filter-tags-container" class="flex flex-wrap gap-1.5"></div>
-            <button onclick="resetFilters()" class="ml-auto text-brand-600 dark:text-brand-400 hover:underline font-bold">Reset All</button>
+        <div class="grid" id="video-grid">
+            <!-- Dynamic Video Cards Will Load Here -->
         </div>
-
-        <!-- VIEW SECTION 1: GUIDES -->
-        <div id="guides-section" class="mb-10">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-heading font-bold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-brand-500"></i>
-                    Comprehensive Step-by-Step Guides
-                </h3>
-            </div>
-            <div id="guides-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Dynamically generated -->
-            </div>
-        </div>
-
-        <!-- VIEW SECTION 2: VIDEOS -->
-        <div id="videos-section" class="mb-10">
-            <div class="flex items-center justify-between mb-4">
-                <div>
-                    <h3 class="font-heading font-bold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                        <i class="fa-solid fa-play-circle text-red-500"></i>
-                        Recommended Cross-Platform Video Tutorials
-                    </h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Curated community links from YouTube, TikTok, Reels, Facebook & Reddit</p>
-                </div>
-            </div>
-            <div id="videos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Dynamically generated -->
-            </div>
-        </div>
-
-        <!-- VIEW SECTION 3: DIAGNOSTIC / HELP CENTER -->
-        <div id="diagnostic-section" class="hidden mb-10">
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-6">
-                <div class="max-w-2xl">
-                    <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
-                        <i class="fa-solid fa-kit-medical mr-1"></i> Diagnostic Assistant
-                    </span>
-                    <h2 class="font-heading text-2xl sm:text-3xl font-extrabold mb-2">Project Stumbling Block?</h2>
-                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                        Select a project category below or search for your symptom (e.g. 'motor not turning', 'green spots on block', 'LED flickering') to get immediate quick fixes.
-                    </p>
-                </div>
-
-                <!-- Symptom Quick Search -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-6" id="troubleshooter-options">
-                    <!-- Dynamic Diagnostic Items -->
-                </div>
-            </div>
-
-            <!-- Solution Result Panel -->
-            <div id="diagnostic-result" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-md transition-all">
-                <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4 mb-4">
-                    <div class="flex items-center gap-3">
-                        <div id="diag-icon" class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl font-bold">
-                            ⚠️
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold uppercase text-brand-600 dark:text-brand-400 tracking-wider">Troubleshooting Fix</span>
-                            <h3 id="diag-title" class="font-heading font-bold text-xl text-slate-900 dark:text-white"></h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700/50">
-                        <span class="text-xs font-bold uppercase text-slate-400 tracking-wider block mb-1">Root Cause</span>
-                        <p id="diag-cause" class="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300"></p>
-                    </div>
-
-                    <div class="bg-brand-50/50 dark:bg-brand-900/20 p-4 rounded-xl border border-brand-200 dark:border-brand-800">
-                        <span class="text-xs font-bold uppercase text-brand-700 dark:text-brand-400 tracking-wider block mb-1">Step-by-Step Fix Action</span>
-                        <p id="diag-action" class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed"></p>
-                    </div>
-
-                    <div id="diag-video-container" class="pt-2">
-                        <span class="text-xs font-bold uppercase text-slate-400 tracking-wider block mb-2">Recommended Video Solution</span>
-                        <div id="diag-video-card"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- EMPTY STATE -->
-        <div id="empty-state" class="hidden text-center py-16 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm my-8">
-            <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <h3 class="font-heading text-lg font-bold text-slate-800 dark:text-slate-200 mb-1">No matching DIY guides or videos</h3>
-            <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-md mx-auto mb-6">Try searching for other project keywords, or recommend a missing video link using the button above.</p>
-            <button onclick="resetFilters()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition shadow">
-                Clear All Search & Filters
-            </button>
-        </div>
-
     </main>
 
-    <!-- MODAL 1: Recommend / Submit Video or Guide -->
-    <div id="submit-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
-                <div class="flex items-center gap-2.5">
-                    <i class="fa-solid fa-paper-plane text-brand-500"></i>
-                    <h3 class="font-heading font-bold text-base">Recommend Video or Guide Link</h3>
-                </div>
-                <button onclick="closeSubmitModal()" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <form id="submit-form" onsubmit="handleUserSubmission(event)" class="p-6 overflow-y-auto custom-scrollbar space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Project Title / Topic *</label>
-                    <input type="text" id="sub-title" required placeholder="e.g. How to solder DC Motor for DIY Toy Car" 
-                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-white">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Platform *</label>
-                        <select id="sub-platform" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-medium focus:outline-none text-slate-900 dark:text-white">
-                            <option value="YouTube">YouTube</option>
-                            <option value="Instagram">Instagram Reels</option>
-                            <option value="TikTok">TikTok</option>
-                            <option value="Facebook">Facebook Watch</option>
-                            <option value="Reddit">Reddit Video</option>
-                            <option value="Pinterest">Pinterest</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Category *</label>
-                        <select id="sub-category" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-medium focus:outline-none text-slate-900 dark:text-white">
-                            <option value="Toys & Robotics">Toys & Robotics</option>
-                            <option value="Mycology & Gardening">Mycology & Gardening</option>
-                            <option value="Electronics & Arduino">Electronics & Arduino</option>
-                            <option value="Leathercraft & Crafts">Leathercraft & Crafts</option>
-                            <option value="Woodworking & Refurbishing">Woodworking & Refurbishing</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Video / Guide URL *</label>
-                    <input type="url" id="sub-url" required placeholder="https://youtube.com/watch?v=... or TikTok/IG link" 
-                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-white">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Creator / Channel Name</label>
-                        <input type="text" id="sub-author" placeholder="e.g. MakerGarage" 
-                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none text-slate-900 dark:text-white">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Skill Level</label>
-                        <select id="sub-skill" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none text-slate-900 dark:text-white">
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Short Description / Key Takeaway</label>
-                    <textarea id="sub-desc" rows="3" placeholder="Briefly explain why this video is helpful..." 
-                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs font-medium focus:outline-none text-slate-900 dark:text-white"></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm py-3 rounded-xl transition shadow">
-                    Submit Recommendation
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL 2: Add Custom Category / Topic Modal -->
-    <div id="topic-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white">Add Custom DIY Category</h3>
-                <button onclick="closeCustomTopicModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <form onsubmit="handleAddCustomTopic(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Category Name</label>
-                    <input type="text" id="custom-topic-name" required placeholder="e.g., 3D Printing, Homebrewing, Upcycling" 
-                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none text-slate-900 dark:text-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Emoji Icon</label>
-                    <input type="text" id="custom-topic-icon" required placeholder="⚡" value="⚙️"
-                        class="w-16 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-center text-sm font-medium focus:outline-none text-slate-900 dark:text-white">
-                </div>
-                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs py-2.5 rounded-xl transition">
-                    Add Category
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Video External Link Alert / Detail Modal -->
-    <div id="video-detail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
-                <span id="vdetail-platform-badge" class="text-xs font-bold px-2.5 py-1 rounded-full"></span>
-                <button onclick="closeVideoDetailModal()" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <div class="p-6 overflow-y-auto custom-scrollbar space-y-4">
-                <div class="aspect-video bg-slate-950 rounded-xl relative overflow-hidden flex items-center justify-center group shadow-inner">
-                    <img id="vdetail-thumb" class="w-full h-full object-cover opacity-80">
-                    <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-4">
-                        <a id="vdetail-external-link" target="_blank" rel="noopener" class="w-16 h-16 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center text-2xl shadow-xl transition-transform hover:scale-110 mb-3">
-                            <i class="fa-solid fa-play ml-1"></i>
-                        </a>
-                        <span class="text-white text-xs font-bold bg-black/70 px-3 py-1 rounded-full">Click to watch original video on <span id="vdetail-platform-name"></span></span>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 id="vdetail-title" class="font-heading font-bold text-xl text-slate-900 dark:text-white"></h3>
-                    <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-2">
-                        <span id="vdetail-author" class="font-bold text-slate-700 dark:text-slate-300"></span>
-                        <span>•</span>
-                        <span id="vdetail-skill" class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-semibold text-slate-700 dark:text-slate-300"></span>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
-                    <span class="text-xs font-bold uppercase text-slate-400 tracking-wider block">Context & Key Learnings</span>
-                    <p id="vdetail-desc" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></p>
-                </div>
-
-                <div class="flex items-center justify-between pt-2">
-                    <button id="vdetail-upvote-btn" onclick="" class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 transition">
-                        <i class="fa-solid fa-thumbs-up text-brand-500"></i> Upvote (<span id="vdetail-upvote-count">0</span>)
-                    </button>
-                    <a id="vdetail-direct-btn" target="_blank" rel="noopener" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow flex items-center gap-2">
-                        Open Link <i class="fa-solid fa-external-link text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-2 transition-transform">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-brand-500 text-base"></i>
-        <span id="toast-message">Success message</span>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-12 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-screwdriver-wrench text-brand-500"></i>
-                <span class="font-heading font-bold text-white text-sm">MakerVault DIY Hub</span>
-            </div>
-            <p class="text-xs text-slate-500">Cross-platform curated knowledge for makers, hobbyists, & repairers.</p>
-            <p class="text-xs text-slate-500">&copy; 2026 MakerVault. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Main Logic Script -->
     <script>
-        // Sample Comprehensive Database
-        const CATEGORIES_INIT = [
-            { id: 'cat-all', name: 'All DIY Topics', icon: '🌐' },
-            { id: 'Toys & Robotics', name: 'Toys & Robotics', icon: '🏎️' },
-            { id: 'Mycology & Gardening', name: 'Mycology & Garden', icon: '🍄' },
-            { id: 'Electronics & Arduino', name: 'Electronics & Arduino', icon: '⚡' },
-            { id: 'Leathercraft & Crafts', name: 'Leather & Crafts', icon: '🧵' },
-            { id: 'Woodworking & Refurbishing', name: 'Woodworking', icon: '🪵' }
-        ];
+        // =========================================================
+        // PASTE YOUR GOOGLE CLOUD YOUTUBE API KEY BELOW:
+        // =========================================================
+        const YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY_HERE";
 
-        const GUIDES_DATA = [
+        // Curated fallback data if no API key is provided or API limit reached
+        const fallbackData = [
             {
-                id: 'g1',
-                title: 'DIY Battery-Powered Mini Motor Toy Car',
-                category: 'Toys & Robotics',
-                skill: 'Beginner',
-                tags: ['Battery Toy Car', 'DC Motor', 'DIY Toy'],
-                materials: ['1x 3V-6V DC Toy Motor', '2x AA Battery Holder', '4x Plastic Wheels', '1x SPST Toggle Switch', 'Hot Glue Gun'],
-                safety: 'Wear eye protection while soldering or cutting plastic components.',
-                steps: [
-                    'Attach the DC motor firmly to the rear chassis using hot glue.',
-                    'Wire the positive (red) wire from the battery pack to one pin of the switch.',
-                    'Connect the opposite switch pin to the positive terminal of the DC motor.',
-                    'Connect the negative (black) battery wire directly to the second motor terminal.',
-                    'Test wheels for smooth rotation before inserting AA batteries.'
-                ]
+                title: "How to Grow Mushrooms at Home (DIY Grow Kit Guide)",
+                channel: "FreshCap Mushrooms",
+                platform: "YouTube",
+                thumbnail: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+                url: "https://www.youtube.com/results?search_query=mushroom+diy+kit"
             },
             {
-                id: 'g2',
-                title: 'Mushroom DIY Grow Block Support & Care',
-                category: 'Mycology & Gardening',
-                skill: 'Beginner',
-                tags: ['Mushroom DIY Kit Support', 'Oyster Care', 'Misting'],
-                materials: ['Oyster Mushroom Kit Block', 'Clean Spray Bottle', 'Humidity Tent Bag', 'Cold Tap Water'],
-                safety: 'Do not inhale concentrated spore dust if harvesting late.',
-                steps: [
-                    'Cut a 2-inch "X" or slit in the plastic bag over the substrate.',
-                    'Spray cold water inside the humidity tent twice daily (do not flood the cut).',
-                    'Place in an area with indirect ambient sunlight and cool airflow.',
-                    'Harvest clusters when mushroom cap edges are flat before they turn upwards.'
-                ]
+                title: "Build a Simple DIY Battery Powered Motor Toy",
+                channel: "Make: Science & Tech",
+                platform: "YouTube",
+                thumbnail: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80",
+                url: "https://www.youtube.com/results?search_query=battery+powered+toy+motor+diy"
             },
             {
-                id: 'g3',
-                title: 'Arduino 8x8 LED Matrix Scrolling Text Display',
-                category: 'Electronics & Arduino',
-                skill: 'Intermediate',
-                tags: ['Arduino LED Matrix', 'MAX7219', 'Microcontroller'],
-                materials: ['Arduino Uno R3', 'MAX7219 8x8 Dot Matrix Module', '5x Dupont Jumper Wires', 'USB Cable'],
-                safety: 'Ensure Arduino is disconnected from power while wiring pin headers.',
-                steps: [
-                    'Connect VCC to 5V and GND to Arduino GND.',
-                    'Connect DIN pin to Arduino Digital Pin 11 (MOSI).',
-                    'Connect CS pin to Arduino Digital Pin 10 and CLK to Pin 13 (SCK).',
-                    'Upload the LedControl or MD_Parola library sketch via Arduino IDE.'
-                ]
-            },
-            {
-                id: 'g4',
-                title: 'Hand-Stitched Custom Leather Cardholder Wallet',
-                category: 'Leathercraft & Crafts',
-                skill: 'Intermediate',
-                tags: ['Leather Wallet', 'Saddle Stitch', 'Crafting'],
-                materials: ['3oz Veg-Tan Leather Scrap', 'Pricking Irons (4mm)', 'Waxed Thread & 2 Harness Needles', 'Tokonole Edge Slicker'],
-                safety: 'Use rotary cutter on a self-healing mat with extreme caution.',
-                steps: [
-                    'Cut leather pieces using paper pattern and sharp knife.',
-                    'Bevel edges and slick with Tokonole before stitching.',
-                    'Mark stitch line 3mm from edge and punch holes with pricking iron.',
-                    'Perform saddle stitch using two needles simultaneously for max strength.'
-                ]
-            },
-            {
-                id: 'g5',
-                title: 'Refurbishing Vintage Wood Furniture with Danish Oil',
-                category: 'Woodworking & Refurbishing',
-                skill: 'Beginner',
-                tags: ['Wood Furniture Restoration', 'Sanding', 'Refinishing'],
-                materials: ['120 & 220 Grit Sandpaper', 'Danish Oil Finish', 'Lint-Free Cotton Rags', 'Tack Cloth'],
-                safety: 'Dispose of oil-soaked rags in sealed metal container to prevent spontaneous combustion.',
-                steps: [
-                    'Clean surface thoroughly with mild soap and dry completely.',
-                    'Sand with the wood grain starting at 120 grit, finishing with smooth 220 grit.',
-                    'Wipe away all sawdust using a tacky cloth.',
-                    'Apply Danish oil liberally with cloth, wait 15 minutes, and buff off excess.'
-                ]
+                title: "Arduino Beginner Guide: LED Matrix & Circuit",
+                channel: "Circuit basics",
+                platform: "YouTube",
+                thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+                url: "https://www.youtube.com/results?search_query=arduino+beginner+guide"
             }
         ];
 
-        const VIDEOS_DATA_INIT = [
-            {
-                id: 'v1',
-                title: 'How to Wire a 3V DC Motor Toy Car with On/Off Switch (Step-by-Step)',
-                platform: 'YouTube',
-                platformClass: 'platform-youtube',
-                platformIcon: 'fa-brands fa-youtube',
-                category: 'Toys & Robotics',
-                skill: 'Beginner',
-                author: 'DIY Toy Lab',
-                length: '8:12',
-                upvotes: 245,
-                tags: ['Battery Toy Car', 'DC Motor', 'Toys'],
-                url: 'https://www.youtube.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80',
-                desc: 'Clear, close-up demonstration of wiring simple DC toy motors, switches, and battery holders without burning components.'
-            },
-            {
-                id: 'v2',
-                title: 'Fix Mushroom Block Contamination vs Healthy White Fuzz in 60s 🍄',
-                platform: 'Instagram',
-                platformClass: 'platform-instagram',
-                platformIcon: 'fa-brands fa-instagram',
-                category: 'Mycology & Gardening',
-                skill: 'Beginner',
-                author: '@SporeCrafts',
-                length: '0:59',
-                upvotes: 189,
-                tags: ['Mushroom DIY Kit Support', 'Mycelium', 'Mold'],
-                url: 'https://www.instagram.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80',
-                desc: 'Quick reel explaining why white fluffy growth around mushroom base is good mycelium while green patches require isolation.'
-            },
-            {
-                id: 'v3',
-                title: 'Arduino MAX7219 LED Matrix Custom Animated Expressions',
-                platform: 'TikTok',
-                platformClass: 'platform-tiktok',
-                platformIcon: 'fa-brands fa-tiktok',
-                category: 'Electronics & Arduino',
-                skill: 'Intermediate',
-                author: '@Robotics101',
-                length: '1:15',
-                upvotes: 312,
-                tags: ['Arduino LED Matrix', 'Electronics', 'Coding'],
-                url: 'https://www.tiktok.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80',
-                desc: 'Fast code walkthrough for converting custom pixel art matrices into byte arrays for Arduino.'
-            },
-            {
-                id: 'v4',
-                title: 'Saddle Stitching Leather Wallet: The Secret to Perfect Tightly Locked Threads',
-                platform: 'YouTube',
-                platformClass: 'platform-youtube',
-                platformIcon: 'fa-brands fa-youtube',
-                category: 'Leathercraft & Crafts',
-                skill: 'Intermediate',
-                author: 'LeatherWorks Studio',
-                length: '14:20',
-                upvotes: 178,
-                tags: ['Leather Wallet', 'Stitching', 'Leathercraft'],
-                url: 'https://www.youtube.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80',
-                desc: 'Masterclass tutorial on maintaining needle orientation and pulling tension evenly during leather saddle stitching.'
-            },
-            {
-                id: 'v5',
-                title: 'Restoring Water Damaged Oak Table with Danish Oil Finish',
-                platform: 'Facebook',
-                platformClass: 'platform-facebook',
-                platformIcon: 'fa-brands fa-facebook',
-                category: 'Woodworking & Refurbishing',
-                skill: 'Beginner',
-                author: 'Restoration Kings',
-                length: '11:05',
-                upvotes: 132,
-                tags: ['Wood Furniture Restoration', 'Refurbish', 'Woodwork'],
-                url: 'https://www.facebook.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&auto=format&fit=crop&q=80',
-                desc: 'Full length breakdown on stripping old varnish, sanding out water rings, and bringing out grain depth.'
-            },
-            {
-                id: 'v6',
-                title: '3 Smart Hacks for Motorized DIY Projects when Motor is Stuck',
-                platform: 'Reddit',
-                platformClass: 'platform-reddit',
-                platformIcon: 'fa-brands fa-reddit',
-                category: 'Toys & Robotics',
-                skill: 'Beginner',
-                author: 'r/DIYGizmos',
-                length: '3:40',
-                upvotes: 95,
-                tags: ['Battery Toy Car', 'Troubleshooting', 'Motors'],
-                url: 'https://www.reddit.com/',
-                thumbnail: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600&auto=format&fit=crop&q=80',
-                desc: 'Community video demonstrating how to clear gear binding and check terminal contact tension in battery toy builds.'
-            }
-        ];
-
-        const DIAGNOSTIC_DATA = [
-            {
-                id: 'd1',
-                symptom: 'Toy Car Motor not spinning when switch is ON',
-                category: 'Toys & Robotics',
-                icon: '🏎️',
-                cause: 'Loose terminal solder connection, dead AA battery, or motor gear binding.',
-                action: '1. Test battery voltage with multimeter.\n2. Ensure battery holder spring terminals make firm metal-to-metal contact.\n3. Check if hot glue has seeped into the exposed motor shaft gear.',
-                videoId: 'v1'
-            },
-            {
-                id: 'd2',
-                symptom: 'Mushroom kit block showing green/black spots',
-                category: 'Mycology & Gardening',
-                icon: '🍄',
-                cause: 'Trichoderma green mold contamination due to airborne spores or excess water pooling.',
-                action: '1. Immediately move the contaminated block away from other indoor plants.\n2. Cut off damaged section with a sanitized spoon if isolated.\n3. Reduce direct water spraying on the open wound.',
-                videoId: 'v2'
-            },
-            {
-                id: 'd3',
-                symptom: 'Arduino LED Matrix display scrambled / flickering',
-                category: 'Electronics & Arduino',
-                icon: '⚡',
-                cause: 'Insufficient ground reference connection or high SPI clock speed noise on jumper wires.',
-                action: '1. Connect Arduino GND directly to the matrix GND pin.\n2. Keep jumper wire lengths under 15cm.\n3. Ensure external 5V power supply is used if cascading multiple matrix modules.',
-                videoId: 'v3'
-            },
-            {
-                id: 'd4',
-                symptom: 'Leather thread bunching up or pulling loose',
-                category: 'Leathercraft & Crafts',
-                icon: '🧵',
-                cause: 'Uneven saddle stitch loop tension or wrong needle size for punched holes.',
-                action: '1. Ensure thread is locked into both needles using the piercing technique.\n2. Pull both needles with identical outward force on every stitch.\n3. Use wax to smooth thread friction.',
-                videoId: 'v4'
-            }
-        ];
-
-        // Application State
-        let state = {
-            searchQuery: '',
-            selectedCategory: 'cat-all',
-            selectedPlatform: 'all',
-            selectedSkill: 'all',
-            sortOrder: 'upvotes',
-            activeTab: 'all', // 'all', 'guides', 'videos', 'diagnostic', 'bookmarks'
-            bookmarks: new Set(JSON.parse(localStorage.getItem('maker_bookmarks') || '[]')),
-            upvotedVideos: new Set(JSON.parse(localStorage.getItem('maker_upvotes') || '[]')),
-            categories: JSON.parse(localStorage.getItem('maker_categories')) || CATEGORIES_INIT,
-            userVideos: JSON.parse(localStorage.getItem('maker_user_videos')) || []
-        };
-
-        // On Load
-        window.onload = function() {
-            initTheme();
-            renderCategoryGrid();
-            render();
-            setupSearchSuggestions();
-        };
-
-        // Dark Mode Toggle
-        function initTheme() {
-            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('theme-icon').className = 'fa-solid fa-sun text-amber-400';
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "YOUR_YOUTUBE_API_KEY_HERE") {
+                document.getElementById("api-status").style.display = "flex";
+                renderCards(fallbackData);
             } else {
-                document.documentElement.classList.remove('dark');
-                document.getElementById('theme-icon').className = 'fa-solid fa-moon text-slate-600';
+                performSearch("DIY beginner tutorial");
+            }
+        });
+
+        function handleKeyPress(e) {
+            if (e.key === "Enter") {
+                performSearch();
             }
         }
 
-        function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                document.getElementById('theme-icon').className = 'fa-solid fa-moon text-slate-600';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('theme-icon').className = 'fa-solid fa-sun text-amber-400';
-            }
-        }
+        async function performSearch(customQuery = null) {
+            const query = customQuery || document.getElementById("search-input").value.trim();
+            const grid = document.getElementById("video-grid");
+            const titleEl = document.getElementById("results-title");
 
-        // Render Categories Bar
-        function renderCategoryGrid() {
-            const container = document.getElementById('category-grid');
-            container.innerHTML = state.categories.map(cat => {
-                const isActive = state.selectedCategory === cat.name || (cat.id === 'cat-all' && state.selectedCategory === 'cat-all');
-                return `
-                    <button onclick="selectCategory('${cat.name}', '${cat.id}')" 
-                        class="p-2.5 sm:p-3 rounded-2xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
-                            isActive 
-                            ? 'bg-brand-600 text-white border-brand-600 shadow-md scale-105 font-bold' 
-                            : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-brand-500 font-semibold'
-                        }">
-                        <span class="text-base">${cat.icon}</span>
-                        <span class="text-xs truncate">${cat.name}</span>
-                    </button>
-                `;
-            }).join('');
-        }
+            if (!query) return;
 
-        function selectCategory(catName, catId) {
-            state.selectedCategory = (catId === 'cat-all') ? 'cat-all' : catName;
-            renderCategoryGrid();
-            render();
-        }
-
-        // Search Auto-Suggestions
-        function setupSearchSuggestions() {
-            const suggestionsList = document.getElementById('suggestions-list');
-            const allItems = [
-                ...GUIDES_DATA.map(g => ({ title: g.title, type: 'Guide', tag: g.tags[0] })),
-                ...getAllVideos().map(v => ({ title: v.title, type: 'Video', tag: v.tags[0] }))
-            ];
-
-            window.showSuggestions = function() {
-                const val = document.getElementById('search-input').value.trim().toLowerCase();
-                const filtered = allItems.filter(i => i.title.toLowerCase().includes(val) || i.tag.toLowerCase().includes(val)).slice(0, 5);
-                
-                if (filtered.length > 0) {
-                    suggestionsList.innerHTML = filtered.map(item => `
-                        <div onclick="setSearch('${item.title}')" class="px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-between">
-                            <span class="font-medium text-slate-800 dark:text-slate-200 truncate">${item.title}</span>
-                            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 ml-2">${item.type}</span>
-                        </div>
-                    `).join('');
-                    document.getElementById('search-suggestions').classList.remove('hidden');
-                } else {
-                    document.getElementById('search-suggestions').classList.add('hidden');
-                }
-            };
-
-            window.hideSuggestions = function() {
-                document.getElementById('search-suggestions').classList.add('hidden');
-            };
-        }
-
-        // Render All Views
-        function render() {
-            const filteredGuides = filterGuides();
-            const filteredVideos = filterVideos();
-
-            document.getElementById('guide-count').innerText = filteredGuides.length;
-            document.getElementById('video-count').innerText = filteredVideos.length;
-
-            const guidesSec = document.getElementById('guides-section');
-            const videosSec = document.getElementById('videos-section');
-            const diagSec = document.getElementById('diagnostic-section');
-
-            // Handle Active Tabs
-            guidesSec.classList.add('hidden');
-            videosSec.classList.add('hidden');
-            diagSec.classList.add('hidden');
-
-            if (state.activeTab === 'guides') {
-                guidesSec.classList.remove('hidden');
-            } else if (state.activeTab === 'videos') {
-                videosSec.classList.remove('hidden');
-            } else if (state.activeTab === 'diagnostic') {
-                diagSec.classList.remove('hidden');
-                renderDiagnosticOptions();
-            } else if (state.activeTab === 'bookmarks') {
-                guidesSec.classList.remove('hidden');
-                videosSec.classList.remove('hidden');
-            } else { // 'all'
-                guidesSec.classList.remove('hidden');
-                videosSec.classList.remove('hidden');
-            }
-
-            // Render Guides Grid
-            const guidesGrid = document.getElementById('guides-grid');
-            if (filteredGuides.length > 0 && state.activeTab !== 'videos' && state.activeTab !== 'diagnostic') {
-                guidesGrid.innerHTML = filteredGuides.map(g => createGuideCardHTML(g)).join('');
-            } else {
-                guidesGrid.innerHTML = '';
-            }
-
-            // Render Videos Grid
-            const videosGrid = document.getElementById('videos-grid');
-            if (filteredVideos.length > 0 && state.activeTab !== 'guides' && state.activeTab !== 'diagnostic') {
-                videosGrid.innerHTML = filteredVideos.map(v => createVideoCardHTML(v)).join('');
-            } else {
-                videosGrid.innerHTML = '';
-            }
-
-            // Handle Empty State
-            const totalCount = (state.activeTab === 'guides') ? filteredGuides.length :
-                               (state.activeTab === 'videos') ? filteredVideos.length :
-                               (state.activeTab === 'diagnostic') ? 1 : (filteredGuides.length + filteredVideos.length);
-
-            const emptyState = document.getElementById('empty-state');
-            if (totalCount === 0) {
-                emptyState.classList.remove('hidden');
-            } else {
-                emptyState.classList.add('hidden');
-            }
-
-            updateFilterIndicators();
-        }
-
-        function getAllVideos() {
-            return [...VIDEOS_DATA_INIT, ...state.userVideos];
-        }
-
-        // Filtering Algorithms
-        function filterGuides() {
-            return GUIDES_DATA.filter(guide => {
-                if (state.activeTab === 'bookmarks' && !state.bookmarks.has(guide.id)) return false;
-                if (state.selectedCategory !== 'cat-all' && guide.category !== state.selectedCategory) return false;
-                if (state.selectedSkill !== 'all' && guide.skill !== state.selectedSkill) return false;
-
-                if (state.searchQuery) {
-                    const q = state.searchQuery.toLowerCase();
-                    const titleMatch = guide.title.toLowerCase().includes(q);
-                    const tagMatch = guide.tags.some(t => t.toLowerCase().includes(q));
-                    const matMatch = guide.materials.some(m => m.toLowerCase().includes(q));
-                    return titleMatch || tagMatch || matMatch;
-                }
-                return true;
-            });
-        }
-
-        function filterVideos() {
-            let videos = getAllVideos().filter(video => {
-                if (state.activeTab === 'bookmarks' && !state.bookmarks.has(video.id)) return false;
-                if (state.selectedCategory !== 'cat-all' && video.category !== state.selectedCategory) return false;
-                if (state.selectedPlatform !== 'all' && video.platform !== state.selectedPlatform) return false;
-                if (state.selectedSkill !== 'all' && video.skill !== state.selectedSkill) return false;
-
-                if (state.searchQuery) {
-                    const q = state.searchQuery.toLowerCase();
-                    const titleMatch = video.title.toLowerCase().includes(q);
-                    const tagMatch = video.tags.some(t => t.toLowerCase().includes(q));
-                    const authorMatch = video.author.toLowerCase().includes(q);
-                    return titleMatch || tagMatch || authorMatch;
-                }
-                return true;
-            });
-
-            if (state.sortOrder === 'upvotes') {
-                videos.sort((a, b) => b.upvotes - a.upvotes);
-            } else if (state.sortOrder === 'newest') {
-                videos.reverse();
-            }
-
-            return videos;
-        }
-
-        // HTML Templates
-        function createGuideCardHTML(guide) {
-            const isBookmarked = state.bookmarks.has(guide.id);
-            return `
-                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <span class="bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 text-xs font-bold px-3 py-1 rounded-full border border-brand-200 dark:border-brand-800">
-                                ${guide.category}
-                            </span>
-                            <div class="flex items-center gap-2">
-                                <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 rounded-md">
-                                    ${guide.skill}
-                                </span>
-                                <button onclick="toggleBookmark('${guide.id}')" class="text-slate-400 hover:text-emerald-500 p-1">
-                                    <i class="${isBookmarked ? 'fa-solid text-emerald-500' : 'fa-regular'} fa-bookmark text-base"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-3 leading-snug">${guide.title}</h3>
-
-                        <!-- Materials List -->
-                        <div class="mb-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Key Materials Required:</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                ${guide.materials.map(m => `<span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700">${m}</span>`).join('')}
-                            </div>
-                        </div>
-
-                        <!-- Step Outline -->
-                        <div class="space-y-1.5 mb-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Step Overview:</span>
-                            <ol class="list-decimal list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1">
-                                ${guide.steps.map(s => `<li>${s}</li>`).join('')}
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-3 rounded-xl text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2 mt-2">
-                        <i class="fa-solid fa-triangle-exclamation text-amber-500 text-sm mt-0.5 shrink-0"></i>
-                        <span><strong>Safety Note:</strong> ${guide.safety}</span>
-                    </div>
+            titleEl.innerHTML = `<i class="fa-solid fa-video"></i> Search Results for: "${query}"`;
+            grid.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Searching YouTube & Web Resources for "${query}"...</p>
                 </div>
             `;
+
+            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "AIzaSyBjlenag75knNhH2FRECE3lZY01PviQp9Q") {
+                setTimeout(() => {
+                    const filtered = fallbackData.filter(item => 
+                        item.title.toLowerCase().includes(query.toLowerCase())
+                    );
+                    renderCards(filtered.length > 0 ? filtered : fallbackData);
+                }, 500);
+                return;
+            }
+
+            try {
+                const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(query + ' DIY tutorial guide')}&type=video&key=${YOUTUBE_API_KEY}`;
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error("YouTube API Error:", data.error);
+                    document.getElementById("api-status").style.display = "flex";
+                    document.getElementById("api-status").innerHTML = `<span><i class="fa-solid fa-circle-exclamation"></i> API Error: ${data.error.message}</span>`;
+                    renderCards(fallbackData);
+                    return;
+                }
+
+                const videos = data.items.map(item => ({
+                    title: item.snippet.title,
+                    channel: item.snippet.channelTitle,
+                    platform: "YouTube",
+                    thumbnail: item.snippet.thumbnails.high.url,
+                    url: `https://www.youtube.com/watch?v=${item.id.videoId}`
+                }));
+
+                renderCards(videos);
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                renderCards(fallbackData);
+            }
         }
 
-        function createVideoCardHTML(video) {
-            const isBookmarked = state.bookmarks.has(video.id);
-            const isUpvoted = state.upvotedVideos.has(video.id);
-            return `
-                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
-                    <div>
-                        <!-- Thumbnail Header -->
-                        <div class="relative aspect-video bg-slate-950 overflow-hidden cursor-pointer" onclick="openVideoDetailModal('${video.id}')">
-                            <img src="${video.thumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 opacity-90">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
-                                <div class="w-12 h-12 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
-                                    <i class="fa-solid fa-play ml-1"></i>
-                                </div>
-                            </div>
-                            <!-- Platform Badge -->
-                            <div class="absolute top-3 left-3 ${video.platformClass} text-[11px] font-bold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                                <i class="${video.platformIcon}"></i>
-                                <span>${video.platform}</span>
-                            </div>
-                            <!-- Duration -->
-                            <div class="absolute bottom-3 right-3 bg-black/80 text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                                ${video.length}
-                            </div>
-                        </div>
+        function renderCards(items) {
+            const grid = document.getElementById("video-grid");
+            grid.innerHTML = "";
 
-                        <!-- Info -->
-                        <div class="p-4">
-                            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1.5">
-                                <span class="font-bold text-slate-700 dark:text-slate-300">${video.author}</span>
-                                <span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] font-bold">${video.skill}</span>
-                            </div>
-                            <h4 class="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 hover:text-brand-600 transition cursor-pointer mb-2" onclick="openVideoDetailModal('${video.id}')">
-                                ${video.title}
-                            </h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">${video.desc}</p>
-                        </div>
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="loading-spinner"><p>No specific videos found. Try another search term!</p></div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="thumbnail-container">
+                        <img src="${item.thumbnail}" alt="${item.title}">
+                        <div class="platform-badge badge-youtube"><i class="fa-brands fa-youtube"></i> ${item.platform}</div>
                     </div>
-
-                    <!-- Actions -->
-                    <div class="px-4 pb-4 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-2">
-                        <button onclick="handleUpvote('${video.id}')" class="flex items-center gap-1.5 text-xs font-bold ${isUpvoted ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500 hover:text-brand-600'} transition">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <span>${video.upvotes}</span>
-                        </button>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleBookmark('${video.id}')" class="text-slate-400 hover:text-emerald-500 transition">
-                                <i class="${isBookmarked ? 'fa-solid text-emerald-500' : 'fa-regular'} fa-bookmark"></i>
-                            </button>
-                            <a href="${video.url}" target="_blank" rel="noopener" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
-                                Watch <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <div class="card-body">
+                        <h4 class="card-title">${item.title}</h4>
+                        <div class="card-meta"><i class="fa-regular fa-circle-user"></i> ${item.channel}</div>
+                        <div class="card-footer">
+                            <a href="${item.url}" target="_blank" rel="noopener" class="watch-btn">
+                                Watch Tutorial <i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                         </div>
                     </div>
-                </div>
-            `;
-        }
-
-        // Diagnostic Options Renderer
-        function renderDiagnosticOptions() {
-            const container = document.getElementById('troubleshooter-options');
-            container.innerHTML = DIAGNOSTIC_DATA.map(item => `
-                <button onclick="selectDiagnosticProblem('${item.id}')" class="p-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 rounded-2xl text-left flex items-start gap-3 transition hover:border-amber-500 group">
-                    <span class="text-2xl">${item.icon}</span>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider block">${item.category}</span>
-                        <span class="text-xs font-bold text-slate-200 group-hover:text-white leading-snug block">${item.symptom}</span>
-                    </div>
-                </button>
-            `).join('');
-        }
-
-        function selectDiagnosticProblem(id) {
-            const prob = DIAGNOSTIC_DATA.find(d => d.id === id);
-            if (!prob) return;
-
-            document.getElementById('diag-icon').innerText = prob.icon;
-            document.getElementById('diag-title').innerText = prob.symptom;
-            document.getElementById('diag-cause').innerText = prob.cause;
-            document.getElementById('diag-action').innerText = prob.action;
-
-            const linkedVideo = getAllVideos().find(v => v.id === prob.videoId);
-            const videoCard = document.getElementById('diag-video-card');
-            if (linkedVideo) {
-                videoCard.innerHTML = `
-                    <div onclick="openVideoDetailModal('${linkedVideo.id}')" class="flex items-center justify-between bg-slate-100 dark:bg-slate-800 p-3 rounded-xl cursor-pointer hover:border-brand-500 border border-transparent transition">
-                        <div class="flex items-center gap-3">
-                            <span class="${linkedVideo.platformClass} text-[10px] font-bold px-2 py-0.5 rounded">
-                                ${linkedVideo.platform}
-                            </span>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate max-w-xs">${linkedVideo.title}</span>
-                        </div>
-                        <i class="fa-solid fa-circle-play text-brand-600 text-base"></i>
-                    </div>
                 `;
-            } else {
-                videoCard.innerHTML = '';
-            }
-
-            document.getElementById('diagnostic-result').classList.remove('hidden');
-        }
-
-        // Interactive Functions
-        function handleSearch(val) {
-            state.searchQuery = val;
-            const clearBtn = document.getElementById('clear-btn');
-            if (val) clearBtn.classList.remove('hidden');
-            else clearBtn.classList.add('hidden');
-            render();
-        }
-
-        function setSearch(tag) {
-            const input = document.getElementById('search-input');
-            input.value = tag;
-            handleSearch(tag);
-        }
-
-        function clearSearch() {
-            const input = document.getElementById('search-input');
-            input.value = '';
-            handleSearch('');
-        }
-
-        function switchTab(tab) {
-            state.activeTab = tab;
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-800', 'dark:text-slate-100', 'shadow-sm', 'font-bold');
-                btn.classList.add('text-slate-600', 'dark:text-slate-400', 'font-semibold');
+                grid.appendChild(card);
             });
-            const activeBtn = document.getElementById(`tab-${tab}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-800', 'dark:text-slate-100', 'shadow-sm', 'font-bold');
-                activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
-            }
-            render();
-        }
-
-        function applyFilters() {
-            state.selectedSkill = document.getElementById('skill-filter').value;
-            state.selectedPlatform = document.getElementById('platform-filter').value;
-            state.sortOrder = document.getElementById('sort-order').value;
-            render();
-        }
-
-        function resetFilters() {
-            state.searchQuery = '';
-            state.selectedCategory = 'cat-all';
-            state.selectedPlatform = 'all';
-            state.selectedSkill = 'all';
-            state.sortOrder = 'upvotes';
-            state.activeTab = 'all';
-
-            document.getElementById('search-input').value = '';
-            document.getElementById('clear-btn').classList.add('hidden');
-            document.getElementById('skill-filter').value = 'all';
-            document.getElementById('platform-filter').value = 'all';
-            document.getElementById('sort-order').value = 'upvotes';
-
-            renderCategoryGrid();
-            switchTab('all');
-            showToast('Search & Filters Reset');
-        }
-
-        function updateFilterIndicators() {
-            const container = document.getElementById('filter-tags-container');
-            const indicator = document.getElementById('active-filter-indicator');
-            let tags = [];
-
-            if (state.searchQuery) tags.push(`Search: "${state.searchQuery}"`);
-            if (state.selectedCategory !== 'cat-all') tags.push(`Category: ${state.selectedCategory}`);
-            if (state.selectedPlatform !== 'all') tags.push(`Platform: ${state.selectedPlatform}`);
-            if (state.selectedSkill !== 'all') tags.push(`Skill: ${state.selectedSkill}`);
-
-            if (tags.length > 0) {
-                container.innerHTML = tags.map(t => `<span class="bg-white dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300">${t}</span>`).join('');
-                indicator.classList.remove('hidden');
-            } else {
-                indicator.classList.add('hidden');
-            }
-        }
-
-        function toggleBookmark(id) {
-            if (state.bookmarks.has(id)) {
-                state.bookmarks.delete(id);
-                showToast('Removed from Bookmarks');
-            } else {
-                state.bookmarks.add(id);
-                showToast('Saved to Bookmarks');
-            }
-            localStorage.setItem('maker_bookmarks', JSON.stringify([...state.bookmarks]));
-            render();
-        }
-
-        function handleUpvote(id) {
-            const video = getAllVideos().find(v => v.id === id);
-            if (!video) return;
-
-            if (state.upvotedVideos.has(id)) {
-                state.upvotedVideos.delete(id);
-                video.upvotes -= 1;
-            } else {
-                state.upvotedVideos.add(id);
-                video.upvotes += 1;
-                showToast('Upvoted!');
-            }
-            localStorage.setItem('maker_upvotes', JSON.stringify([...state.upvotedVideos]));
-            render();
-        }
-
-        // Submissions & LocalStorage
-        function handleUserSubmission(e) {
-            e.preventDefault();
-            const title = document.getElementById('sub-title').value;
-            const platform = document.getElementById('sub-platform').value;
-            const category = document.getElementById('sub-category').value;
-            const url = document.getElementById('sub-url').value;
-            const author = document.getElementById('sub-author').value || 'Community Member';
-            const skill = document.getElementById('sub-skill').value;
-            const desc = document.getElementById('sub-desc').value || 'User recommended DIY video resource.';
-
-            let platformClass = 'platform-youtube';
-            let platformIcon = 'fa-solid fa-video';
-            if (platform === 'Instagram') { platformClass = 'platform-instagram'; platformIcon = 'fa-brands fa-instagram'; }
-            if (platform === 'TikTok') { platformClass = 'platform-tiktok'; platformIcon = 'fa-brands fa-tiktok'; }
-            if (platform === 'Facebook') { platformClass = 'platform-facebook'; platformIcon = 'fa-brands fa-facebook'; }
-            if (platform === 'Reddit') { platformClass = 'platform-reddit'; platformIcon = 'fa-brands fa-reddit'; }
-            if (platform === 'Pinterest') { platformClass = 'platform-pinterest'; platformIcon = 'fa-brands fa-pinterest'; }
-
-            const newVid = {
-                id: 'uv_' + Date.now(),
-                title,
-                platform,
-                platformClass,
-                platformIcon,
-                category,
-                skill,
-                author,
-                length: 'Custom',
-                upvotes: 1,
-                tags: [category, platform],
-                url,
-                thumbnail: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80',
-                desc
-            };
-
-            state.userVideos.unshift(newVid);
-            localStorage.setItem('maker_user_videos', JSON.stringify(state.userVideos));
-
-            closeSubmitModal();
-            showToast('Recommendation Submitted!');
-            render();
-        }
-
-        function handleAddCustomTopic(e) {
-            e.preventDefault();
-            const name = document.getElementById('custom-topic-name').value;
-            const icon = document.getElementById('custom-topic-icon').value || '⚙️';
-
-            const newCat = { id: 'custom_' + Date.now(), name, icon };
-            state.categories.push(newCat);
-            localStorage.setItem('maker_categories', JSON.stringify(state.categories));
-
-            closeCustomTopicModal();
-            renderCategoryGrid();
-            showToast(`Added '${name}' Category`);
-        }
-
-        // Modal Controls
-        function openSubmitModal() { document.getElementById('submit-modal').classList.remove('hidden'); }
-        function closeSubmitModal() { document.getElementById('submit-modal').classList.add('hidden'); }
-        function openCustomTopicModal() { document.getElementById('topic-modal').classList.remove('hidden'); }
-        function closeCustomTopicModal() { document.getElementById('topic-modal').classList.add('hidden'); }
-
-        function openVideoDetailModal(id) {
-            const video = getAllVideos().find(v => v.id === id);
-            if (!video) return;
-
-            document.getElementById('vdetail-platform-badge').innerText = video.platform;
-            document.getElementById('vdetail-platform-badge').className = `text-xs font-bold px-2.5 py-1 rounded-full ${video.platformClass}`;
-            document.getElementById('vdetail-thumb').src = video.thumbnail;
-            document.getElementById('vdetail-platform-name').innerText = video.platform;
-            document.getElementById('vdetail-external-link').href = video.url;
-            document.getElementById('vdetail-title').innerText = video.title;
-            document.getElementById('vdetail-author').innerText = video.author;
-            document.getElementById('vdetail-skill').innerText = video.skill;
-            document.getElementById('vdetail-desc').innerText = video.desc;
-            document.getElementById('vdetail-upvote-count').innerText = video.upvotes;
-            document.getElementById('vdetail-direct-btn').href = video.url;
-            document.getElementById('vdetail-upvote-btn').onclick = () => { handleUpvote(video.id); openVideoDetailModal(video.id); };
-
-            document.getElementById('video-detail-modal').classList.remove('hidden');
-        }
-
-        function closeVideoDetailModal() {
-            document.getElementById('video-detail-modal').classList.add('hidden');
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
         }
     </script>
 </body>
