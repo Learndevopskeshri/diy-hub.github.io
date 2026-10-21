@@ -440,15 +440,18 @@ async function performSearch(customQuery = null) {
         return;
     }
 
-    try {
-        // Automatically detect user's country from browser language (e.g., 'en-IN' -> 'IN')
+try {
         const userLang = navigator.language || navigator.userLanguage || 'en-US';
         const countryCode = userLang.split('-')[1] || 'US';
 
-        const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(query)}&type=video&regionCode=${countryCode}&key=${YOUTUBE_API_KEY}`;
+        let searchQuery = query;
+        if (countryCode === 'IN') {
+            searchQuery += ' in India';
+        }
+        const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&q=${encodeURIComponent(searchQuery)}&type=video&regionCode=${countryCode}&key=${YOUTUBE_API_KEY}`;
+        
         const response = await fetch(endpoint);
         const data = await response.json();
-
         if (data.error) {
             console.error("YouTube API Error:", data.error);
             document.getElementById("api-status").style.display = "flex";
@@ -456,7 +459,6 @@ async function performSearch(customQuery = null) {
             renderCards(fallbackData);
             return;
         }
-
         const videos = data.items.map(item => ({
             title: item.snippet.title,
             channel: item.snippet.channelTitle,
